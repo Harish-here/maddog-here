@@ -32,22 +32,19 @@ export default {
       progressionValue: [0.010,0.017,0.029,0.014,0.023,0.025,0.027],
       progressionValue2: [0.014,0.010,0.020,0.0250,0.026,0.022,0.029],
       progressionValueSeconds:[1,2,3,4,5,6,7],
-      randomNumber: [0,1,2]
+      randomNumber: [0,1,2],
+      showEffect: true
     }
   },
   methods: {
     getRandomInt: function(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+      return Math.floor(Math.random() * (max - min)) + min; 
     }
   },
   mounted(){
-    setInterval(()=>{
-
-      // ((this.specialText.length - 2) < this.step) ? this.step = 0:  this.step++;
-      this.step = this.getRandomInt(0,this.specialText.length);
-    },10000)
+    
     let mode = true;
     setInterval(()=>{
       let val = Number(this.cardPostion.top.split('%')[0]);//0.025
@@ -96,14 +93,11 @@ export default {
     },this.progressionValueSeconds[this.randomNumber[2]]);
   },
   async created(){
-    // axios.get('https://api.datamuse.com/words?ml=functional')
-    // .then((data) => {
-    //   console.log(data)
-     
-    // })
-    const { data } = await this.$axios.get('https://api.datamuse.com/words?ml=functional');
-    let filtered = data.filter(x => x.tags.includes("adj") && x.score > 70000).map(x => x.word);
-    this.specialText = [...this.specialText,...filtered];
+    if(this.showEffect){
+      const { data } = await this.$axios.get('https://api.datamuse.com/words?ml=functional');
+      let filtered = data.filter(x => x.tags.includes("adj") && x.score > 70000).map(x => x.word);
+      this.specialText = [...this.specialText,...filtered];
+    }
     
   }
 
