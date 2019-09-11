@@ -1,6 +1,9 @@
 
 export default {
   mode: 'spa',
+  generate: {
+    dir: 'public'
+  },
   /*
   ** Headers of the page
   */
@@ -53,6 +56,7 @@ export default {
   ** Build configuration
   */
   build: {
+    // publicPath: 'public/',
     /*
     ** You can extend webpack config here
     */
